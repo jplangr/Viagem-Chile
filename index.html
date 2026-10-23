@@ -116,7 +116,20 @@ footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px}
 footer ul{padding-left:18px;margin:8px 0 0;columns:2 260px;column-gap:24px}
 footer li{break-inside:avoid;margin:3px 0}
 
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:4px 0 14px}
+.photo{margin:0;position:relative;border-radius:10px;overflow:hidden;background:var(--ks,var(--cerro-soft));aspect-ratio:3/2;max-width:100%}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 7px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.68));color:#fff;font-size:13.5px;font-weight:600;line-height:1.3}
+.photo figcaption small{display:block;font-weight:400;font-size:10.5px;opacity:.8;margin-top:1px}
+.photo.noimg figcaption{top:0;display:grid;align-content:center;justify-items:center;text-align:center;background:none;color:var(--k,var(--cerro))}
+.photo.noimg figcaption small{display:none}
+.hero{aspect-ratio:21/8;margin-top:18px}
+.opt{border:1px dashed var(--mar);border-radius:12px;padding:16px;background:var(--surface);--k:var(--mar);--ks:var(--mar-soft)}
+.opt .tag{margin-left:0}
+.subtotal td{font-weight:700;background:var(--bg)}
+.food{margin-top:14px}
 @media (max-width:520px){
+  .hero{aspect-ratio:16/9}
   .days{grid-template-columns:repeat(3,1fr)}
   ol.timeline li{grid-template-columns:50px 1fr;gap:10px}
   .care{grid-template-columns:1fr;gap:2px}
@@ -129,17 +142,18 @@ footer li{break-inside:avoid;margin:3px 0}
 
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">Santiago · Valparaíso · Algarrobo · 22–27 nov 2026</div>
+    <div class="eyebrow">Santiago · Valparaíso · Viña del Mar · 22–27 nov 2026</div>
     <h1>Santiago em família</h1>
     <p class="lede">Seis dias para seis pessoas, sem nenhum passeio em altitude. Toque no dia para ver horários, como chegar e quanto custa.</p>
     <dl class="facts">
-      <div><dt>Grupo</dt><dd>Sogros, Mana e namorado, João e Gabriela</dd></div>
+      <div><dt>Grupo</dt><dd>Giovanni (Papai), Denise (Mamãe), Mana, Ozy, Gabi e João</dd></div>
       <div><dt>Ida · dom 22</dt><dd class="mono">GRU 7:10 → SCL 11:15</dd></div>
       <div><dt>Volta · sex 27</dt><dd class="mono">SCL 20:45 → GRU 00:40</dd></div>
       <div><dt>Hotel</dt><dd>Nodo · Suecia 172, Providencia</dd></div>
-      <div><dt>Noite fora</dt><dd>Ter 24 em Algarrobo</dd></div>
+      <div><dt>Litoral</dt><dd>Bate-volta na ter 24</dd></div>
       <div><dt>Fuso</dt><dd>Mesmo horário de SP</dd></div>
     </dl>
+    <figure class="photo hero" data-img="Santiago_desde_teleférico_Pedro_de_Valdivia.jpg"><figcaption>Santiago e a Cordilheira vistos do teleférico do San Cristóbal<small>Foto: Nbendersky · CC BY-SA 4.0 · Wikimedia Commons</small></figcaption></figure>
     <p class="rule"><b>Regra do roteiro:</b> nada de Valle Nevado, Farellones, Embalse El Yeso, Cajón del Maipo alto, Portillo ou Laguna del Inca. Todos passam de 2.000 m.</p>
   </header>
 </div>
@@ -147,6 +161,7 @@ footer li{break-inside:avoid;margin:3px 0}
 <nav class="sections" aria-label="Seções">
   <div class="wrap">
     <a href="#roteiro">Roteiro</a>
+    <a href="#opcional">Opcional</a>
     <a href="#transporte">Transporte</a>
     <a href="#orcamento">Orçamento</a>
     <a href="#levar">O que levar</a>
@@ -157,9 +172,28 @@ footer li{break-inside:avoid;margin:3px 0}
 <main class="wrap">
   <section id="roteiro">
     <h2>Roteiro dia a dia</h2>
-    <p class="sub">Dias puxados alternam com dias leves; o litoral vira uma viagem só, com pernoite.</p>
+    <p class="sub">Dias puxados alternam com dias leves; o único bate-volta ao litoral é seguido de um dia tranquilo.</p>
     <div class="days" role="tablist" id="daytabs"></div>
     <div id="daypanel" role="tabpanel"></div>
+  </section>
+
+  <section id="opcional">
+    <div class="opt">
+      <div class="dayhead"><h3>Opcional · Isla Negra e Algarrobo</h3><span class="tag">Bate-volta extra</span><span class="alt">Altitude máx. <b>≈ 0–50 m</b></span></div>
+      <p class="daynote">Se der vontade de outro dia de praia, este passeio pode substituir a quarta (25) ou a quinta (26). São cerca de 2h de estrada em cada sentido. A piscina gigante só pode ser vista de fora, porque é exclusiva de hóspedes.</p>
+      <div class="photos">
+        <figure class="photo" data-img="Casa_de_Pablo_Neruda,_Isla_Negra.jpg"><figcaption>Casa Museo Isla Negra, de Pablo Neruda<small>Foto: Vavillegash · CC BY-SA 3.0 · Wikimedia Commons</small></figcaption></figure>
+        <figure class="photo" data-img="San_Alfonso_del_Mar,_Algarrobo_20230314.jpg"><figcaption>Lagoa de San Alfonso del Mar, Algarrobo<small>Foto: Carlos Figueroa Rojas · CC BY-SA 4.0 · Wikimedia Commons</small></figcaption></figure>
+      </div>
+      <ol class="timeline">
+        <li><div class="hr">8:30</div><div><div class="what">Saída para o Litoral de los Poetas (~2h)</div><div class="meta"><span>Van privada</span></div></div></li>
+        <li><div class="hr">10:30</div><div><div class="what"><a href="https://www.meteored.cl/noticias/ocio/una-joya-escondida-en-el-litoral-de-los-poetas-playas-solitarias-y-cocina-marina-con-vista-al-atardecer.html" target="_blank" rel="noopener">Casa Museo Isla Negra</a>, casa do Neruda. Ter–dom, 10:00–18:00</div><div class="meta"><span>Van</span><span class="price">CLP 10.000 / pessoa</span></div></div></li>
+        <li><div class="hr">12:30</div><div><div class="what">Algarrobo: almoço com vista para a lagoa de <a href="https://www.viagensecaminhos.com/maior-piscina-do-mundo-algarrobo-chile/" target="_blank" rel="noopener">San Alfonso del Mar</a> (1.013 m)</div><div class="meta"><span>Confirmar se o restaurante do condomínio aceita não hóspedes</span><span class="price">~CLP 30.000 / pessoa</span></div></div></li>
+        <li><div class="hr">14:30</div><div><div class="what">Orla de Algarrobo e praia de Las Cadenas</div><div class="meta"><span>Caminhada leve</span><span class="price">Grátis</span></div></div></li>
+        <li><div class="hr">16:00</div><div><div class="what">Volta a Santiago (~2h)</div><div class="meta"><span>Van</span></div></div></li>
+      </ol>
+      <div class="tip"><strong>Custo extra:</strong> cerca de CLP 80.000 por pessoa (~R$ 440), somando a van do dia (~CLP 415.000 ÷ 6) e a entrada do museu, fora o almoço.</div>
+    </div>
   </section>
 
   <section id="transporte">
@@ -171,7 +205,7 @@ footer li{break-inside:avoid;margin:3px 0}
         <tr><td>Aeroporto → Nodo (dom 22)</td><td>Van privada reservada antes; motorista espera com placa no desembarque</td><td>CLP 40.000–60.000 por van · <a href="https://dicaschile.com.br/?p=16960" target="_blank" rel="noopener">fonte</a></td></tr>
         <tr><td>Nodo → aeroporto (sex 27)</td><td>Mesma empresa da chegada</td><td>CLP 40.000–60.000 por van</td></tr>
         <tr><td>Vinícola no Maipo (seg 23)</td><td>Van meio período, ou tour com transporte incluso</td><td>Tour com transporte: ~US$ 87–110 p/ pessoa · <a href="https://www.travelocity.com/things-to-do/from-santiago-concha-y-toro-winery-tour-with-transfer.a4525243.activity-details" target="_blank" rel="noopener">fonte</a></td></tr>
-        <tr><td>Litoral (ter 24 e qua 25)</td><td>Van privada com motorista por 2 dias</td><td>Dia inteiro p/ 4–6 pessoas a partir de US$ 460 · <a href="https://ww2.aaa.com/tripcanvas/thing-to-do/private-full-day-guided-trip-to-valparaiso-vina-del-mar-and-renaca-from-santiago-67976P31" target="_blank" rel="noopener">fonte</a>; pedir preço fechado p/ 2 dias</td></tr>
+        <tr><td>Litoral (ter 24)</td><td>Van privada com motorista, dia inteiro</td><td>Dia inteiro p/ 4–6 pessoas a partir de US$ 460 · <a href="https://ww2.aaa.com/tripcanvas/thing-to-do/private-full-day-guided-trip-to-valparaiso-vina-del-mar-and-renaca-from-santiago-67976P31" target="_blank" rel="noopener">fonte</a>; pedir preço fechado</td></tr>
         <tr><td>Dentro de Santiago</td><td>Uber, Cabify ou DiDi (2 carros) ou metrô</td><td>Corridas curtas baratas; metrô Los Leones e Tobalaba perto do hotel</td></tr>
         <tr><td>Subidas em Valparaíso</td><td>Ascensores (funiculares antigos)</td><td>CLP 200–300, só em dinheiro</td></tr>
       </tbody>
@@ -179,27 +213,36 @@ footer li{break-inside:avoid;margin:3px 0}
     <ul class="plain">
       <li>O grupo não cabe num Uber comum: são sempre 2 carros, ou Uber XL quando houver.</li>
       <li>Não contratar transfer no balcão do aeroporto: sai mais caro.</li>
-      <li>Na van dos dias 24 e 25, pedir motorista que conheça Valparaíso (as ruas dos cerros são estreitas).</li>
+      <li>Na van do dia 24, pedir motorista que conheça Valparaíso (as ruas dos cerros são estreitas).</li>
       <li>Ter sempre um pouco de peso em espécie para ascensores, gorjetas e feirinhas.</li>
     </ul>
   </section>
 
   <section id="orcamento">
     <h2>Orçamento estimado</h2>
-    <p class="sub">Fora aéreo e hotel: cerca de CLP 630.000 por pessoa, ou ~R$ 3.500 (~R$ 7.000 por casal).</p>
+    <p class="sub">Passeios e transporte: cerca de CLP 210.000 por pessoa (~R$ 1.160). Alimentação fica à parte: cerca de CLP 300.000 por pessoa (~R$ 1.650).</p>
     <div class="tablebox"><table>
-      <thead><tr><th>Categoria</th><th class="num">CLP / pessoa</th><th class="num">R$ / pessoa</th><th>Como chegou nesse valor</th></tr></thead>
+      <thead><tr><th>Passeios e transporte</th><th class="num">CLP / pessoa</th><th class="num">R$ / pessoa</th><th>Como chegou nesse valor</th></tr></thead>
       <tbody>
-        <tr><td>Transportes do grupo (÷ 6)</td><td class="num">230.000</td><td class="num">1.265</td><td>2 transfers de aeroporto (~100.000), van 2 dias no litoral (~830.000), van na vinícola (~200.000), diária em Algarrobo (~250.000)</td></tr>
-        <tr><td>Ingressos</td><td class="num">75.000</td><td class="num">410</td><td>Concha y Toro ~40.000, Sky Costanera 20.000, Isla Negra 10.000, San Cristóbal ~4.000, ascensores</td></tr>
-        <tr><td>Refeições</td><td class="num">300.000</td><td class="num">1.650</td><td>~11 refeições fora, incluindo Giratório e jantar de despedida</td></tr>
+        <tr><td>Transportes do grupo (÷ 6)</td><td class="num">120.000</td><td class="num">660</td><td>2 transfers de aeroporto (~100.000), van no dia de litoral (~415.000), van na vinícola (~200.000)</td></tr>
+        <tr><td>Ingressos</td><td class="num">65.000</td><td class="num">360</td><td>Concha y Toro ~40.000, Sky Costanera 20.000, San Cristóbal ~4.000, ascensores</td></tr>
         <tr><td>Uber e metrô na cidade</td><td class="num">25.000</td><td class="num">140</td><td>Deslocamentos curtos em 2 carros</td></tr>
-        <tr class="total"><td>Total</td><td class="num">630.000</td><td class="num">~3.465</td><td></td></tr>
+        <tr class="total"><td>Total sem alimentação</td><td class="num">210.000</td><td class="num">~1.160</td><td></td></tr>
+      </tbody>
+    </table></div>
+    <div class="tablebox food"><table>
+      <thead><tr><th>Alimentação (à parte)</th><th class="num">CLP / pessoa</th><th class="num">R$ / pessoa</th><th>Como chegou nesse valor</th></tr></thead>
+      <tbody>
+        <tr><td>Almoços (5)</td><td class="num">135.000</td><td class="num">740</td><td>Providencia, região do Maipo, Viña ou Concón, Vitacura, Mercado Central e Costanera; entre ~CLP 20.000 e 40.000 cada</td></tr>
+        <tr><td>Jantares (5)</td><td class="num">150.000</td><td class="num">825</td><td>Giratório, jantar leve na terça, Bocanáriz, despedida em Bellavista e uma noite livre; ~CLP 20.000–35.000 cada</td></tr>
+        <tr><td>Lanches, cafés e água</td><td class="num">15.000</td><td class="num">85</td><td>Margem para o dia a dia</td></tr>
+        <tr class="total"><td>Total de alimentação</td><td class="num">300.000</td><td class="num">~1.650</td><td>Café da manhã incluso no Nodo</td></tr>
       </tbody>
     </table></div>
     <ul class="plain">
       <li>Não inclui passagens, Hotel Nodo, compras, vinhos para trazer e seguro-viagem.</li>
-      <li>A diária em Algarrobo é a maior incógnita. Há apartamentos no condomínio para até 10 pessoas, com taxas extras de lençóis e toalhas (<a href="https://www.airbnb.fr/rooms/36636211" target="_blank" rel="noopener">exemplo</a>).</li>
+      <li>O passeio opcional a Isla Negra e Algarrobo soma cerca de R$ 440 por pessoa, fora o almoço.</li>
+      <li>A van do litoral é o maior item: vale pedir 2 ou 3 orçamentos fechados.</li>
     </ul>
     <div class="conv" aria-label="Conversor de moeda">
       <label for="clp">Pesos chilenos (CLP)<input id="clp" inputmode="numeric" value="20.000"></label>
@@ -221,7 +264,7 @@ footer li{break-inside:avoid;margin:3px 0}
       <div class="care"><b>Voo LATAM</b><p>Até 29 semanas sem atestado; de 30 a 35, atestado emitido no máximo 10 dias antes; de 36 a 38, atestado enviado à área médica com 48 h de antecedência (<a href="https://catracalivre.com.br/viagem-livre/saiba-quais-sao-as-regras-para-gestante-viajar-de-aviao-durante-cada-etapa-da-gravidez/" target="_blank" rel="noopener">fonte</a>). Confirmar no site da companhia.</p></div>
       <div class="care"><b>Comida</b><p>O litoral é famoso por ceviche, machas e ostras crus, e queijos artesanais aparecem muito. Preferir pratos cozidos e queijos industrializados.</p></div>
       <div class="care"><b>Vinícolas</b><p>Ela pode fazer o passeio inteiro; pedir suco de uva no lugar da degustação.</p></div>
-      <div class="care"><b>Ritmo</b><p>Nos dias de estrada, paradas a cada 1h30 e assento da frente na van.</p></div>
+      <div class="care"><b>Ritmo</b><p>O único dia longo de estrada (terça) é seguido de um dia tranquilo; na van, paradas a cada 1h30 e assento da frente.</p></div>
       <div class="care"><b>Calor e ar seco</b><p>Água o tempo todo e protetor solar.</p></div>
     </div>
     <h3 style="font-family:var(--f-display);font-weight:400;font-size:20px;margin:26px 0 8px">Reservas, por ordem de prioridade <span class="progress" id="resprog"></span></h3>
@@ -238,12 +281,13 @@ footer li{break-inside:avoid;margin:3px 0}
     <li><a href="https://www.encancha.cl/enlahora/panoramas/2025/09/07/precios-y-horarios-del-sky-costanera-el-panorama-con-la-vista-mas-impresionante-de-santiago/" target="_blank" rel="noopener">Sky Costanera, preços – En Cancha</a></li>
     <li><a href="https://www.meganoticias.cl/dato-util/524489-teleferico-funicular-santiago-precios-entradas-horarios-vacaciones-invierno-12-06-2026.html" target="_blank" rel="noopener">Teleférico e funicular – Meganoticias</a></li>
     <li><a href="https://dicaschile.com.br/?p=15757" target="_blank" rel="noopener">Concha y Toro, tour tradicional – Dicas Chile</a></li>
-    <li><a href="https://www.meteored.cl/noticias/ocio/una-joya-escondida-en-el-litoral-de-los-poetas-playas-solitarias-y-cocina-marina-con-vista-al-atardecer.html" target="_blank" rel="noopener">Isla Negra – Meteored</a></li>
+    <li><a href="https://www.encancha.cl/enlahora/panoramas/2026/03/10/ofrece-dos-lagunas-canil-de-adiestramiento-y-entrada-a-0-el-pulmon-verde-ideal-para-pasar-los-ultimos-dias-del-verano-en-santiago/" target="_blank" rel="noopener">Parque Bicentenario – En Cancha</a></li>
+    <li><a href="https://dicaschile.com.br/?p=8130" target="_blank" rel="noopener">Bocanáriz – Dicas Chile</a></li>
     <li><a href="https://www.viagensecaminhos.com/maior-piscina-do-mundo-algarrobo-chile/" target="_blank" rel="noopener">San Alfonso del Mar – Viagens e Caminhos</a></li>
     <li><a href="https://www.expat.com/it/guida/sud-america/cile/valparaiso/37589-mezzi-di-trasporto-a-valparaso.html" target="_blank" rel="noopener">Ascensores de Valparaíso – Expat.com</a></li>
     <li><a href="https://dicaschile.com.br/?p=16960" target="_blank" rel="noopener">Transfers em Santiago – Dicas Chile</a></li>
   </ul>
-  <p style="margin-top:16px">Valores são estimativas de 2025–2026; confirmar na hora de reservar.</p>
+  <p style="margin-top:16px">Valores são estimativas de 2025–2026; confirmar na hora de reservar. Fotos do Wikimedia Commons, com autor e licença indicados em cada uma.</p>
 </footer>
 
 <script>
@@ -266,32 +310,33 @@ const DAYS=[
    ["13:00","Almoço na região","","~CLP 30.000 / pessoa"],
    ["15:30","Volta ao hotel e tarde livre (Costanera Center, descanso)","",""]],
   tip:"<strong>Alternativa:</strong> Viña Santa Rita (Buin, ~45 min), com parque centenário, Museu Andino e restaurante próprio."},
- {id:"ter24",dw:"Ter",dn:"24",t:"litoral",tag:"Litoral",title:"Valparaíso e Viña del Mar",alt:"≈ 0–100 m",
-  note:"Sair com mochila para 1 noite; as malas ficam no Nodo.",
+ {id:"ter24",dw:"Ter",dn:"24",t:"litoral",tag:"Bate-volta",title:"Valparaíso e Viña del Mar",alt:"≈ 0–100 m",
+  note:"Bate-volta: saída cedo e volta para o Nodo no fim da tarde.",
   items:[
-   ["8:30","Saída para o litoral","Van privada (2 dias)",""],
+   ["8:30","Saída para o litoral (~1h40)","Van privada",""],
    ["10:15","Parada rápida numa vinícola do Vale de Casablanca (opcional)","Van",""],
    ["11:00","Valparaíso: Cerro Alegre e Cerro Concepción, Paseo Gervasoni e Paseo Dimalow","Subir de ascensor (Reina Victoria ou Concepción), descer a pé em trecho curto","CLP 200–300, em dinheiro"],
    ["13:30","Almoço de frutos do mar em Viña ou Concón","Van","~CLP 30.000 / pessoa"],
    ["15:30","Viña del Mar: Reloj de Flores, Castillo Wulff, orla","Van + caminhada leve","Grátis"],
-   ["18:00","Seguir para Algarrobo (~1h15) e jantar","Van","~CLP 25.000 / pessoa"]],
+   ["17:30","Volta a Santiago (~1h40)","Van",""],
+   ["19:30","Jantar leve perto do hotel","A pé","~CLP 20.000 / pessoa"]],
   tip:"<strong>Para a Mana:</strong> em Valparaíso, sempre subir de ascensor; as ladeiras são de paralelepípedo."},
- {id:"qua25",dw:"Qua",dn:"25",t:"litoral",tag:"Litoral",title:"Piscina gigante e Isla Negra",alt:"≈ 0–50 m",
-  note:"Manhã na lagoa de 1.013 m de San Alfonso del Mar, tarde na casa do Neruda.",
+ {id:"qua25",dw:"Qua",dn:"25",t:"vinho",tag:"Dia leve",title:"Parque, Vitacura e vinho em Lastarria",alt:"≈ 650 m",
+  note:"Dia tranquilo depois da estrada de terça: pouca caminhada, tarde livre e a noite como ponto alto.",
   items:[
-   ["9:00",`Manhã na lagoa de ${L("https://www.viagensecaminhos.com/maior-piscina-do-mundo-algarrobo-chile/","San Alfonso del Mar")}`,"Acesso como hóspede","Incluído na diária"],
-   ["11:30","Check-out","",""],
-   ["12:00",`${L("https://www.meteored.cl/noticias/ocio/una-joya-escondida-en-el-litoral-de-los-poetas-playas-solitarias-y-cocina-marina-con-vista-al-atardecer.html","Casa Museo Isla Negra")}, a 13 km. Ter–dom, 10:00–18:00`,"Van","CLP 10.000 / pessoa"],
-   ["13:30","Almoço no restaurante do museu ou na vila","","~CLP 25.000 / pessoa"],
-   ["16:00","Volta a Santiago (~2h)","Van",""],
-   ["Noite","Jantar leve perto do hotel","A pé",""]],
-  tip:"<strong>Confirmar com o anfitrião</strong> se a lagoa já está liberada para banho no fim de novembro. Sem banho, dá para caminhar pela orla e usar caiaque se estiver operando."},
+   ["10:00","Café da manhã sem pressa no hotel","","Incluído"],
+   ["11:00",`${L("https://www.encancha.cl/enlahora/panoramas/2026/03/10/ofrece-dos-lagunas-canil-de-adiestramiento-y-entrada-a-0-el-pulmon-verde-ideal-para-pasar-los-ultimos-dias-del-verano-en-santiago/","Parque Bicentenario")}, em Vitacura: caminhada plana em volta das lagoas, com flamingos`,"Uber (~15 min)","Grátis"],
+   ["13:00","Almoço caprichado em Vitacura (região de Alonso de Córdova)","A pé ou Uber curto","~CLP 40.000 / pessoa"],
+   ["15:00","Volta ao hotel e descanso","Uber",""],
+   ["19:00",`Bar de vinhos ${L("https://dicaschile.com.br/?p=8130","Bocanáriz")}, em Lastarria: taças avulsas de vinhos chilenos`,"Uber ou metrô","~CLP 15.000–30.000 / pessoa"],
+   ["20:30","Jantar no próprio Bocanáriz ou em Lastarria","A pé","~CLP 35.000 / pessoa"]],
+  tip:"<strong>Bocanáriz:</strong> reservar mesa para 6. A Mana pode pedir algo sem álcool."},
  {id:"qui26",dw:"Qui",dn:"26",t:"cidade",tag:"Cidade",title:"Santiago a pé",alt:"≈ 860 m no San Cristóbal",
   note:"O teleférico pode fechar às 18:45, por isso o San Cristóbal fica no meio da tarde.",
   items:[
    ["10:00","Centro histórico: La Moneda (por fora), Plaza de Armas, Catedral","Metrô Linha 1 ou Uber","Grátis"],
    ["12:30","Almoço no Mercado Central","A pé","~CLP 20.000 / pessoa"],
-   ["14:00","Bairro Lastarria e Museo de Bellas Artes","A pé ou Uber curto","Grátis"],
+   ["14:00","Museo de Bellas Artes e Parque Forestal","A pé ou Uber curto","Grátis"],
    ["15:30","Cerro San Cristóbal: funicular até o santuário, teleférico na descida","Uber até a estação Pío Nono","Combo a partir de ~CLP 3.780"],
    ["18:30","Bellavista: Patio Bellavista, bares e lojas","A pé",""],
    ["20:30","Jantar de despedida em Bellavista","","~CLP 35.000 / pessoa"]],
@@ -308,6 +353,25 @@ const DAYS=[
    ["20:45","Voo para São Paulo","",""]],
   tip:"<strong>Trânsito:</strong> sexta à tarde é pesado no caminho do aeroporto; não atrasar a saída das 16:30."}
 ];
+const PH={
+ dom22:[["Santiago_de_Chile_desde_Giratorio_Restaurant.jpg","A vista do Giratório","Doramas3","CC BY-SA 4.0"],["Restaurante_Giratório_-_Santiago_-_panoramio.jpg","O salão giratório, no 16º andar","Paulo JC Nogueira","CC BY-SA 3.0"]],
+ seg23:[["Viña_Concha_y_Toro_-_Pirque.JPG","Viña Concha y Toro, em Pirque","Apincheira","CC BY-SA 3.0"],["Frente_Casa_Patronal_Concha_y_Toro.jpg","Casa patronal da Concha y Toro","Rjcastillo","CC BY-SA 4.0"]],
+ ter24:[["Colorful_Valparaiso_houses.jpg","Casas coloridas dos cerros de Valparaíso","Gabrielinfante92","CC BY-SA 4.0"],["Reloj_de_Flores,_Viña_del_Mar,_Chile1.jpg","Reloj de Flores, Viña del Mar","Diego Delso","CC BY-SA 3.0"]],
+ qua25:[["Parque_Bicentenario,_Vitacura,_Santiago_20200314_02.jpg","Parque Bicentenario, Vitacura","Carlos Figueroa Rojas","CC BY-SA 4.0"],["Barrio_Lastarria_Santiago.jpg","Bairro Lastarria","Cristian Coloma","CC BY-SA 4.0"]],
+ qui26:[["Catedral_y_Plaza_de_Armas_Santiago_de_Chile.jpg","Plaza de Armas e Catedral","Sfs90","CC BY-SA 4.0"],["Mercado_Central,_Santiago_de_Chile,_Chile1.jpg","Mercado Central","Diego Delso","CC BY-SA 3.0"],["Santiago_Cable_Car.jpg","Teleférico do San Cristóbal","Robert Motecinos Holda","CC0"],["Chile,_Santiago,_Barrio_Bellavista_(13065418915).jpg","Bairro Bellavista","Klausiee","CC BY-SA 2.0"]],
+ sex27:[["Santiago_from_sky_costanera_2018.jpg","Santiago vista do Sky Costanera","Charles Hancock","CC BY-SA 4.0"],["Pasillo_Pueblito_de_Los_Dominicos_A74018320250621.jpg","Pueblito Los Dominicos","Rjcastillo","CC BY-SA 4.0"]]
+};
+const IMG=f=>"https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width=960";
+function fig(f,cap,who,lic){return `<figure class="photo" data-img="${f}"><figcaption>${cap}<small>Foto: ${who} · ${lic} · Wikimedia Commons</small></figcaption></figure>`}
+function loadPhotos(root){
+  root.querySelectorAll("figure.photo[data-img]:not([data-done])").forEach(fg=>{
+    fg.dataset.done="1";
+    const im=new Image();im.alt=fg.querySelector("figcaption").firstChild.textContent;im.loading="lazy";im.decoding="async";
+    im.onerror=()=>{im.remove();fg.classList.add("noimg")};
+    im.src=IMG(fg.dataset.img);fg.prepend(im);
+  });
+}
+loadPhotos(document);
 const tabs=document.getElementById("daytabs"),panel=document.getElementById("daypanel");
 function renderDay(i){
   const d=DAYS[i];
@@ -315,8 +379,10 @@ function renderDay(i){
   panel.className="t-"+d.t;
   panel.innerHTML=`<div class="dayhead"><h3>${d.dw} ${d.dn}/11 · ${d.title}</h3><span class="tag">${d.tag}</span><span class="alt">Altitude máx. <b>${d.alt}</b></span></div>
   <p class="daynote">${d.note}</p>
+  ${PH[d.id]?`<div class="photos">${PH[d.id].map(p=>fig(...p)).join("")}</div>`:""}
   <ol class="timeline">${d.items.map(([h,w,c,v])=>`<li><div class="hr">${h}</div><div><div class="what">${w}</div>${(c||v)?`<div class="meta">${c?`<span>${c}</span>`:""}${v?`<span class="price">${v}</span>`:""}</div>`:""}</div></li>`).join("")}</ol>
   ${d.tip?`<div class="tip">${d.tip}</div>`:""}`;
+  loadPhotos(panel);
   try{localStorage.setItem("sc-day",d.id)}catch(e){}
 }
 DAYS.forEach((d,i)=>{
@@ -349,7 +415,7 @@ function checklist(ul,items,key,prog){
 }
 const PACK={
  "Documentos e dinheiro":["RG emitido há menos de 10 anos ou passaporte válido","Passaporte para isenção de IVA no hotel","Cartão internacional com pouca taxa e um pouco de peso em espécie","Seguro-viagem para todos, com cobertura para a gravidez da Mana","Atestado médico da Mana, se a idade gestacional exigir"],
- "Roupas":["Camisetas leves e bermuda ou vestido para as tardes","Casaco corta-vento e agasalho para o litoral e a noite","Tênis confortável (ladeiras em Valparaíso)","Roupa de banho, se a lagoa estiver aberta","Uma roupa mais arrumada para o Giratório"],
+ "Roupas":["Camisetas leves e bermuda ou vestido para as tardes","Casaco corta-vento e agasalho para o litoral e a noite","Tênis confortável (ladeiras em Valparaíso)","Sapatênis confortável para o Parque Bicentenario e o centro","Uma roupa mais arrumada para o Giratório"],
  "Clima":["Protetor solar alto, óculos escuros e boné","Hidratante labial e para a pele","Garrafinha de água para cada um"],
  "Eletrônicos e extras":["Adaptador de tomada universal (Chile: tipo C e L, 220 V)","Power bank","Chip ou eSIM internacional","Espaço na mala ou protetores para garrafas de vinho"]
 };
@@ -362,8 +428,8 @@ Object.entries(PACK).forEach(([g,items],gi)=>{
 function updPack(){const b=[...packEl.querySelectorAll("input")];document.getElementById("packprog").textContent="· "+b.filter(x=>x.checked).length+"/"+b.length+" na mala"}
 updPack();
 checklist(document.getElementById("reslist"),[
- "Apartamento em San Alfonso del Mar para 24/11, confirmando acesso à lagoa",
- "Van privada para 24 e 25/11 (preço fechado, com pernoite do motorista)",
+ "Van privada para o bate-volta de 24/11 (preço fechado)",
+ "Mesa para 6 no Bocanáriz, 25/11 às 19:00",
  "Transfers do aeroporto: chegada 22/11 11:15 e saída 27/11 16:30",
  "Tour na Concha y Toro (ou Santa Rita) em 23/11, em português",
  "Mesa para 6 na janela do Giratório, 22/11 às 20:00",
