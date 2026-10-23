@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}img{max-width:100%}body{margin:0}</style>
+<title>Santiago em Família</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: guia de bolso — cabeçalho com dias em abas, conteúdo em coluna única de leitura, seções de consulta abaixo */
+:root{
+  --bg:#f2f3f1; --surface:#ffffff; --ink:#1d2228; --muted:#5c6570; --line:#d9dde0;
+  --vino:#7b1e3a; --vino-soft:#f3e3e8; --mar:#1f6377; --mar-soft:#dcecf0; --cerro:#6b5a2e; --cerro-soft:#efe8d6;
+  --ok:#2f6b3a;
+  --f-display:"Young Serif",Georgia,"Times New Roman",serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171b; --surface:#1c2026; --ink:#e8eaec; --muted:#9aa3ad; --line:#2e343c;
+  --vino:#e07a98; --vino-soft:#3a1d27; --mar:#6cb8cc; --mar-soft:#16313a; --cerro:#d4bb7a; --cerro-soft:#33301f; --ok:#7cc48a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171b; --surface:#1c2026; --ink:#e8eaec; --muted:#9aa3ad; --line:#2e343c;
+  --vino:#e07a98; --vino-soft:#3a1d27; --mar:#6cb8cc; --mar-soft:#16313a; --cerro:#d4bb7a; --cerro-soft:#33301f; --ok:#7cc48a;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--vino);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--mar);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:28px 8px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6vw,42px);line-height:1.1;margin:6px 0 10px;text-wrap:balance}
+.lede{color:var(--muted);max-width:60ch;margin:0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:20px}
+.facts div{background:var(--surface);padding:10px 12px;min-width:0}
+.facts dt{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.facts dd{margin:2px 0 0;font-weight:600;font-size:15px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.rule{margin-top:14px;padding:10px 12px;border-left:3px solid var(--cerro);background:var(--cerro-soft);border-radius:0 8px 8px 0;font-size:14.5px}
+
+nav.sections{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:20px}
+nav.sections .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav.sections a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;padding:6px 10px;border-radius:999px}
+nav.sections a:hover{color:var(--ink);background:var(--surface)}
+
+section{padding-block:28px 8px}
+h2{font-family:var(--f-display);font-weight:400;font-size:26px;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:16px}
+.days button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 4px;cursor:pointer;display:grid;gap:2px;justify-items:center;min-width:0}
+.days button .dw{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.days button .dn{font-family:var(--f-display);font-size:22px;line-height:1}
+.days button .dot{width:8px;height:8px;border-radius:50%}
+.days button[aria-selected="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.t-cidade{--k:var(--cerro);--ks:var(--cerro-soft)}
+.t-vinho{--k:var(--vino);--ks:var(--vino-soft)}
+.t-litoral{--k:var(--mar);--ks:var(--mar-soft)}
+.dot{background:var(--k)}
+
+.dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:6px}
+.dayhead h3{font-family:var(--f-display);font-weight:400;font-size:22px;margin:0}
+.tag{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--k);background:var(--ks);padding:3px 8px;border-radius:999px}
+.alt{font-size:13px;color:var(--muted)}
+.alt b{color:var(--ink);font-weight:600}
+.daynote{margin:6px 0 14px;color:var(--muted);font-size:15px}
+
+ol.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+ol.timeline li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+ol.timeline li:first-child{border-top:0}
+.hr{font-family:var(--f-mono);font-size:14px;color:var(--k);font-weight:500;padding-top:1px}
+.what{font-weight:600;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;color:var(--muted);margin-top:3px}
+.meta span{min-width:0}
+.meta .price{color:var(--ink);font-family:var(--f-mono);font-size:13px}
+.tip{margin-top:14px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:14.5px}
+.tip strong{color:var(--k)}
+
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--bg)}
+ul.plain{padding-left:20px;margin:12px 0 0}
+ul.plain li{margin:4px 0}
+
+.conv{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.conv label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:grid;gap:4px}
+.conv input{font:inherit;font-family:var(--f-mono);font-size:18px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.conv .rate{grid-column:1/-1;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.conv .rate input{width:90px;font-size:14px;padding:4px 8px}
+
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px 24px}
+.group h4{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{border-top:1px solid var(--line)}
+.checks li:first-child{border-top:0}
+.checks label{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;cursor:pointer;font-size:15px}
+.checks input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--ok)}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.progress{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+
+.cards{display:grid;gap:10px}
+.care{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.care:first-child{border-top:0}
+.care b{font-size:14px}
+.care p{margin:0;min-width:0}
+
+footer{padding-block:32px 40px;color:var(--muted);font-size:13.5px}
+footer ul{padding-left:18px;margin:8px 0 0;columns:2 260px;column-gap:24px}
+footer li{break-inside:avoid;margin:3px 0}
+
+@media (max-width:520px){
+  .days{grid-template-columns:repeat(3,1fr)}
+  ol.timeline li{grid-template-columns:50px 1fr;gap:10px}
+  .care{grid-template-columns:1fr;gap:2px}
+  .conv{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Santiago · Valparaíso · Algarrobo · 22–27 nov 2026</div>
+    <h1>Santiago em família</h1>
+    <p class="lede">Seis dias para seis pessoas, sem nenhum passeio em altitude. Toque no dia para ver horários, como chegar e quanto custa.</p>
+    <dl class="facts">
+      <div><dt>Grupo</dt><dd>Sogros, Mana e namorado, João e Gabriela</dd></div>
+      <div><dt>Ida · dom 22</dt><dd class="mono">GRU 7:10 → SCL 11:15</dd></div>
+      <div><dt>Volta · sex 27</dt><dd class="mono">SCL 20:45 → GRU 00:40</dd></div>
+      <div><dt>Hotel</dt><dd>Nodo · Suecia 172, Providencia</dd></div>
+      <div><dt>Noite fora</dt><dd>Ter 24 em Algarrobo</dd></div>
+      <div><dt>Fuso</dt><dd>Mesmo horário de SP</dd></div>
+    </dl>
+    <p class="rule"><b>Regra do roteiro:</b> nada de Valle Nevado, Farellones, Embalse El Yeso, Cajón del Maipo alto, Portillo ou Laguna del Inca. Todos passam de 2.000 m.</p>
+  </header>
+</div>
+
+<nav class="sections" aria-label="Seções">
+  <div class="wrap">
+    <a href="#roteiro">Roteiro</a>
+    <a href="#transporte">Transporte</a>
+    <a href="#orcamento">Orçamento</a>
+    <a href="#levar">O que levar</a>
+    <a href="#mana">Mana e reservas</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="roteiro">
+    <h2>Roteiro dia a dia</h2>
+    <p class="sub">Dias puxados alternam com dias leves; o litoral vira uma viagem só, com pernoite.</p>
+    <div class="days" role="tablist" id="daytabs"></div>
+    <div id="daypanel" role="tabpanel"></div>
+  </section>
+
+  <section id="transporte">
+    <h2>Transporte</h2>
+    <p class="sub">Van privada para aeroporto e passeios fora da cidade; Uber e metrô dentro de Santiago.</p>
+    <div class="tablebox"><table>
+      <thead><tr><th>Trecho</th><th>Melhor opção</th><th>Valor de referência</th></tr></thead>
+      <tbody>
+        <tr><td>Aeroporto → Nodo (dom 22)</td><td>Van privada reservada antes; motorista espera com placa no desembarque</td><td>CLP 40.000–60.000 por van · <a href="https://dicaschile.com.br/?p=16960" target="_blank" rel="noopener">fonte</a></td></tr>
+        <tr><td>Nodo → aeroporto (sex 27)</td><td>Mesma empresa da chegada</td><td>CLP 40.000–60.000 por van</td></tr>
+        <tr><td>Vinícola no Maipo (seg 23)</td><td>Van meio período, ou tour com transporte incluso</td><td>Tour com transporte: ~US$ 87–110 p/ pessoa · <a href="https://www.travelocity.com/things-to-do/from-santiago-concha-y-toro-winery-tour-with-transfer.a4525243.activity-details" target="_blank" rel="noopener">fonte</a></td></tr>
+        <tr><td>Litoral (ter 24 e qua 25)</td><td>Van privada com motorista por 2 dias</td><td>Dia inteiro p/ 4–6 pessoas a partir de US$ 460 · <a href="https://ww2.aaa.com/tripcanvas/thing-to-do/private-full-day-guided-trip-to-valparaiso-vina-del-mar-and-renaca-from-santiago-67976P31" target="_blank" rel="noopener">fonte</a>; pedir preço fechado p/ 2 dias</td></tr>
+        <tr><td>Dentro de Santiago</td><td>Uber, Cabify ou DiDi (2 carros) ou metrô</td><td>Corridas curtas baratas; metrô Los Leones e Tobalaba perto do hotel</td></tr>
+        <tr><td>Subidas em Valparaíso</td><td>Ascensores (funiculares antigos)</td><td>CLP 200–300, só em dinheiro</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="plain">
+      <li>O grupo não cabe num Uber comum: são sempre 2 carros, ou Uber XL quando houver.</li>
+      <li>Não contratar transfer no balcão do aeroporto: sai mais caro.</li>
+      <li>Na van dos dias 24 e 25, pedir motorista que conheça Valparaíso (as ruas dos cerros são estreitas).</li>
+      <li>Ter sempre um pouco de peso em espécie para ascensores, gorjetas e feirinhas.</li>
+    </ul>
+  </section>
+
+  <section id="orcamento">
+    <h2>Orçamento estimado</h2>
+    <p class="sub">Fora aéreo e hotel: cerca de CLP 630.000 por pessoa, ou ~R$ 3.500 (~R$ 7.000 por casal).</p>
+    <div class="tablebox"><table>
+      <thead><tr><th>Categoria</th><th class="num">CLP / pessoa</th><th class="num">R$ / pessoa</th><th>Como chegou nesse valor</th></tr></thead>
+      <tbody>
+        <tr><td>Transportes do grupo (÷ 6)</td><td class="num">230.000</td><td class="num">1.265</td><td>2 transfers de aeroporto (~100.000), van 2 dias no litoral (~830.000), van na vinícola (~200.000), diária em Algarrobo (~250.000)</td></tr>
+        <tr><td>Ingressos</td><td class="num">75.000</td><td class="num">410</td><td>Concha y Toro ~40.000, Sky Costanera 20.000, Isla Negra 10.000, San Cristóbal ~4.000, ascensores</td></tr>
+        <tr><td>Refeições</td><td class="num">300.000</td><td class="num">1.650</td><td>~11 refeições fora, incluindo Giratório e jantar de despedida</td></tr>
+        <tr><td>Uber e metrô na cidade</td><td class="num">25.000</td><td class="num">140</td><td>Deslocamentos curtos em 2 carros</td></tr>
+        <tr class="total"><td>Total</td><td class="num">630.000</td><td class="num">~3.465</td><td></td></tr>
+      </tbody>
+    </table></div>
+    <ul class="plain">
+      <li>Não inclui passagens, Hotel Nodo, compras, vinhos para trazer e seguro-viagem.</li>
+      <li>A diária em Algarrobo é a maior incógnita. Há apartamentos no condomínio para até 10 pessoas, com taxas extras de lençóis e toalhas (<a href="https://www.airbnb.fr/rooms/36636211" target="_blank" rel="noopener">exemplo</a>).</li>
+    </ul>
+    <div class="conv" aria-label="Conversor de moeda">
+      <label for="clp">Pesos chilenos (CLP)<input id="clp" inputmode="numeric" value="20.000"></label>
+      <label for="brl">Reais (R$)<input id="brl" inputmode="decimal" value=""></label>
+      <div class="rate"><label for="rate" style="display:contents">Cotação: R$</label><input id="rate" inputmode="decimal" value="5,50"> por CLP 1.000 (ref. jul/2026; ajuste antes de ir)</div>
+    </div>
+  </section>
+
+  <section id="levar">
+    <h2>O que levar</h2>
+    <p class="sub">Roupa em camadas: a tarde em Santiago é quente e seca, a manhã e o litoral pedem casaco. <span class="progress" id="packprog"></span></p>
+    <div class="groups" id="packlist"></div>
+  </section>
+
+  <section id="mana">
+    <h2>Mana e reservas</h2>
+    <p class="sub">O roteiro todo fica abaixo de 1.000 m; o que resta é cuidar do voo, da comida e do ritmo.</p>
+    <div class="cards">
+      <div class="care"><b>Voo LATAM</b><p>Até 29 semanas sem atestado; de 30 a 35, atestado emitido no máximo 10 dias antes; de 36 a 38, atestado enviado à área médica com 48 h de antecedência (<a href="https://catracalivre.com.br/viagem-livre/saiba-quais-sao-as-regras-para-gestante-viajar-de-aviao-durante-cada-etapa-da-gravidez/" target="_blank" rel="noopener">fonte</a>). Confirmar no site da companhia.</p></div>
+      <div class="care"><b>Comida</b><p>O litoral é famoso por ceviche, machas e ostras crus, e queijos artesanais aparecem muito. Preferir pratos cozidos e queijos industrializados.</p></div>
+      <div class="care"><b>Vinícolas</b><p>Ela pode fazer o passeio inteiro; pedir suco de uva no lugar da degustação.</p></div>
+      <div class="care"><b>Ritmo</b><p>Nos dias de estrada, paradas a cada 1h30 e assento da frente na van.</p></div>
+      <div class="care"><b>Calor e ar seco</b><p>Água o tempo todo e protetor solar.</p></div>
+    </div>
+    <h3 style="font-family:var(--f-display);font-weight:400;font-size:20px;margin:26px 0 8px">Reservas, por ordem de prioridade <span class="progress" id="resprog"></span></h3>
+    <ul class="checks" id="reslist"></ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="eyebrow">Fontes</div>
+  <ul>
+    <li><a href="https://www.booking.com/hotel/cl/nodo.html" target="_blank" rel="noopener">Hotel Nodo – Booking.com</a></li>
+    <li><a href="https://chile.travel/pt-br/blog-pt-br/o-fascinante-restaurante-giratorio-em-santiago" target="_blank" rel="noopener">Giratório – Chile Travel</a></li>
+    <li><a href="https://www.theclinic.cl/2026/04/07/el-giratorio-remodelacion-45-anos-restaurante-providencia/amp/" target="_blank" rel="noopener">Giratório, reforma 2026 – The Clinic</a></li>
+    <li><a href="https://www.encancha.cl/enlahora/panoramas/2025/09/07/precios-y-horarios-del-sky-costanera-el-panorama-con-la-vista-mas-impresionante-de-santiago/" target="_blank" rel="noopener">Sky Costanera, preços – En Cancha</a></li>
+    <li><a href="https://www.meganoticias.cl/dato-util/524489-teleferico-funicular-santiago-precios-entradas-horarios-vacaciones-invierno-12-06-2026.html" target="_blank" rel="noopener">Teleférico e funicular – Meganoticias</a></li>
+    <li><a href="https://dicaschile.com.br/?p=15757" target="_blank" rel="noopener">Concha y Toro, tour tradicional – Dicas Chile</a></li>
+    <li><a href="https://www.meteored.cl/noticias/ocio/una-joya-escondida-en-el-litoral-de-los-poetas-playas-solitarias-y-cocina-marina-con-vista-al-atardecer.html" target="_blank" rel="noopener">Isla Negra – Meteored</a></li>
+    <li><a href="https://www.viagensecaminhos.com/maior-piscina-do-mundo-algarrobo-chile/" target="_blank" rel="noopener">San Alfonso del Mar – Viagens e Caminhos</a></li>
+    <li><a href="https://www.expat.com/it/guida/sud-america/cile/valparaiso/37589-mezzi-di-trasporto-a-valparaso.html" target="_blank" rel="noopener">Ascensores de Valparaíso – Expat.com</a></li>
+    <li><a href="https://dicaschile.com.br/?p=16960" target="_blank" rel="noopener">Transfers em Santiago – Dicas Chile</a></li>
+  </ul>
+  <p style="margin-top:16px">Valores são estimativas de 2025–2026; confirmar na hora de reservar.</p>
+</footer>
+
+<script>
+const L=(href,txt)=>`<a href="${href}" target="_blank" rel="noopener">${txt}</a>`;
+const DAYS=[
+ {id:"dom22",dw:"Dom",dn:"22",t:"cidade",tag:"Chegada",title:"Chegada e Giratório",alt:"≈ 570 m",
+  note:"Dia leve de propósito: todo mundo acordou de madrugada.",
+  items:[
+   ["11:15","Pouso, imigração e malas","",""],
+   ["12:30","Transfer até o Nodo (~40 min)","Van privada reservada","CLP 40.000–60.000 / van"],
+   ["13:00","Deixar malas na recepção e almoçar em Providencia","A pé","~CLP 20.000 / pessoa"],
+   ["15:00","Check-in e descanso","",""],
+   ["20:00",`Jantar no ${L("https://chile.travel/pt-br/blog-pt-br/o-fascinante-restaurante-giratorio-em-santiago","Giratório")}, 16º andar; o salão dá a volta completa em 1h25`,"A pé, perto do metrô Los Leones","Pratos a partir de ~CLP 24.000"]],
+  tip:"<strong>Giratório:</strong> reservar mesa na janela para 6 e chegar antes do pôr do sol. O salão foi reformado em 2026; confirmar funcionamento ao reservar."},
+ {id:"seg23",dw:"Seg",dn:"23",t:"vinho",tag:"Vinícola",title:"Vale do Maipo",alt:"≈ 670 m",
+  note:"Segunda é o dia certo para a vinícola: os teleféricos do San Cristóbal fecham para manutenção e vários museus não abrem.",
+  items:[
+   ["9:30","Saída para Pirque (~40 min)","Van meio período ou 2 Ubers",""],
+   ["10:30",`Tour no ${L("https://dicaschile.com.br/?p=15757","Centro del Vino Concha y Toro")}: jardins, Casa Don Melchor por fora, adega Casillero del Diablo`,"Tour guiado em português","~CLP 30.000–50.000 / pessoa"],
+   ["13:00","Almoço na região","","~CLP 30.000 / pessoa"],
+   ["15:30","Volta ao hotel e tarde livre (Costanera Center, descanso)","",""]],
+  tip:"<strong>Alternativa:</strong> Viña Santa Rita (Buin, ~45 min), com parque centenário, Museu Andino e restaurante próprio."},
+ {id:"ter24",dw:"Ter",dn:"24",t:"litoral",tag:"Litoral",title:"Valparaíso e Viña del Mar",alt:"≈ 0–100 m",
+  note:"Sair com mochila para 1 noite; as malas ficam no Nodo.",
+  items:[
+   ["8:30","Saída para o litoral","Van privada (2 dias)",""],
+   ["10:15","Parada rápida numa vinícola do Vale de Casablanca (opcional)","Van",""],
+   ["11:00","Valparaíso: Cerro Alegre e Cerro Concepción, Paseo Gervasoni e Paseo Dimalow","Subir de ascensor (Reina Victoria ou Concepción), descer a pé em trecho curto","CLP 200–300, em dinheiro"],
+   ["13:30","Almoço de frutos do mar em Viña ou Concón","Van","~CLP 30.000 / pessoa"],
+   ["15:30","Viña del Mar: Reloj de Flores, Castillo Wulff, orla","Van + caminhada leve","Grátis"],
+   ["18:00","Seguir para Algarrobo (~1h15) e jantar","Van","~CLP 25.000 / pessoa"]],
+  tip:"<strong>Para a Mana:</strong> em Valparaíso, sempre subir de ascensor; as ladeiras são de paralelepípedo."},
+ {id:"qua25",dw:"Qua",dn:"25",t:"litoral",tag:"Litoral",title:"Piscina gigante e Isla Negra",alt:"≈ 0–50 m",
+  note:"Manhã na lagoa de 1.013 m de San Alfonso del Mar, tarde na casa do Neruda.",
+  items:[
+   ["9:00",`Manhã na lagoa de ${L("https://www.viagensecaminhos.com/maior-piscina-do-mundo-algarrobo-chile/","San Alfonso del Mar")}`,"Acesso como hóspede","Incluído na diária"],
+   ["11:30","Check-out","",""],
+   ["12:00",`${L("https://www.meteored.cl/noticias/ocio/una-joya-escondida-en-el-litoral-de-los-poetas-playas-solitarias-y-cocina-marina-con-vista-al-atardecer.html","Casa Museo Isla Negra")}, a 13 km. Ter–dom, 10:00–18:00`,"Van","CLP 10.000 / pessoa"],
+   ["13:30","Almoço no restaurante do museu ou na vila","","~CLP 25.000 / pessoa"],
+   ["16:00","Volta a Santiago (~2h)","Van",""],
+   ["Noite","Jantar leve perto do hotel","A pé",""]],
+  tip:"<strong>Confirmar com o anfitrião</strong> se a lagoa já está liberada para banho no fim de novembro. Sem banho, dá para caminhar pela orla e usar caiaque se estiver operando."},
+ {id:"qui26",dw:"Qui",dn:"26",t:"cidade",tag:"Cidade",title:"Santiago a pé",alt:"≈ 860 m no San Cristóbal",
+  note:"O teleférico pode fechar às 18:45, por isso o San Cristóbal fica no meio da tarde.",
+  items:[
+   ["10:00","Centro histórico: La Moneda (por fora), Plaza de Armas, Catedral","Metrô Linha 1 ou Uber","Grátis"],
+   ["12:30","Almoço no Mercado Central","A pé","~CLP 20.000 / pessoa"],
+   ["14:00","Bairro Lastarria e Museo de Bellas Artes","A pé ou Uber curto","Grátis"],
+   ["15:30","Cerro San Cristóbal: funicular até o santuário, teleférico na descida","Uber até a estação Pío Nono","Combo a partir de ~CLP 3.780"],
+   ["18:30","Bellavista: Patio Bellavista, bares e lojas","A pé",""],
+   ["20:30","Jantar de despedida em Bellavista","","~CLP 35.000 / pessoa"]],
+  tip:""},
+ {id:"sex27",dw:"Sex",dn:"27",t:"cidade",tag:"Volta",title:"Última manhã e volta",alt:"≈ 780 m",
+  note:"Check-out até 12:00; malas guardadas no Nodo até a saída.",
+  items:[
+   ["9:30","Check-out e malas guardadas no Nodo","",""],
+   ["10:00","Pueblito Los Dominicos (artesanato)","Uber (~20 min)","Grátis"],
+   ["12:30",`${L("https://chile.travel/en/attractions/sky-costanera/","Sky Costanera")}, mirante a 300 m, a ~600 m do hotel`,"A pé","CLP 20.000 / pessoa"],
+   ["13:30","Almoço no Costanera Center ou Barrio Italia","","~CLP 25.000 / pessoa"],
+   ["16:30","Buscar malas e sair para o aeroporto","Van privada reservada","CLP 40.000–60.000 / van"],
+   ["17:45","Aeroporto e check-in","",""],
+   ["20:45","Voo para São Paulo","",""]],
+  tip:"<strong>Trânsito:</strong> sexta à tarde é pesado no caminho do aeroporto; não atrasar a saída das 16:30."}
+];
+const tabs=document.getElementById("daytabs"),panel=document.getElementById("daypanel");
+function renderDay(i){
+  const d=DAYS[i];
+  [...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i?"true":"false"));
+  panel.className="t-"+d.t;
+  panel.innerHTML=`<div class="dayhead"><h3>${d.dw} ${d.dn}/11 · ${d.title}</h3><span class="tag">${d.tag}</span><span class="alt">Altitude máx. <b>${d.alt}</b></span></div>
+  <p class="daynote">${d.note}</p>
+  <ol class="timeline">${d.items.map(([h,w,c,v])=>`<li><div class="hr">${h}</div><div><div class="what">${w}</div>${(c||v)?`<div class="meta">${c?`<span>${c}</span>`:""}${v?`<span class="price">${v}</span>`:""}</div>`:""}</div></li>`).join("")}</ol>
+  ${d.tip?`<div class="tip">${d.tip}</div>`:""}`;
+  try{localStorage.setItem("sc-day",d.id)}catch(e){}
+}
+DAYS.forEach((d,i)=>{
+  const b=document.createElement("button");
+  b.type="button";b.setAttribute("role","tab");b.id="tab-"+d.id;b.className="t-"+d.t;
+  b.innerHTML=`<span class="dw">${d.dw}</span><span class="dn">${d.dn}</span><span class="dot"></span>`;
+  b.addEventListener("click",()=>renderDay(i));
+  tabs.appendChild(b);
+});
+(function(){
+  let idx=0;
+  const h=location.hash.slice(1);
+  const byHash=DAYS.findIndex(d=>d.id===h);
+  const now=new Date(),y=now.getFullYear(),m=now.getMonth(),dd=now.getDate();
+  if(byHash>=0) idx=byHash;
+  else if(y===2026&&m===10&&dd>=22&&dd<=27) idx=dd-22;
+  else { try{const s=localStorage.getItem("sc-day");const k=DAYS.findIndex(d=>d.id===s);if(k>=0)idx=k}catch(e){} }
+  renderDay(idx);
+  if(byHash>=0) document.getElementById("roteiro").scrollIntoView();
+})();
+
+/* checklists */
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"{}");localStorage.setItem(k,JSON.stringify(v))}catch(e){return {}}}
+function checklist(ul,items,key,prog){
+  const st=store(key);
+  ul.innerHTML=items.map((t,i)=>`<li><label><input type="checkbox" id="${key}-${i}" ${st[i]?"checked":""}><span>${t}</span></label></li>`).join("");
+  const upd=()=>{const boxes=[...ul.querySelectorAll("input")];if(prog)prog.textContent=boxes.filter(b=>b.checked).length+"/"+boxes.length};
+  ul.addEventListener("change",e=>{const i=+e.target.id.split("-").pop();const s=store(key);s[i]=e.target.checked;store(key,s);upd();updPack()});
+  upd();
+}
+const PACK={
+ "Documentos e dinheiro":["RG emitido há menos de 10 anos ou passaporte válido","Passaporte para isenção de IVA no hotel","Cartão internacional com pouca taxa e um pouco de peso em espécie","Seguro-viagem para todos, com cobertura para a gravidez da Mana","Atestado médico da Mana, se a idade gestacional exigir"],
+ "Roupas":["Camisetas leves e bermuda ou vestido para as tardes","Casaco corta-vento e agasalho para o litoral e a noite","Tênis confortável (ladeiras em Valparaíso)","Roupa de banho, se a lagoa estiver aberta","Uma roupa mais arrumada para o Giratório"],
+ "Clima":["Protetor solar alto, óculos escuros e boné","Hidratante labial e para a pele","Garrafinha de água para cada um"],
+ "Eletrônicos e extras":["Adaptador de tomada universal (Chile: tipo C e L, 220 V)","Power bank","Chip ou eSIM internacional","Espaço na mala ou protetores para garrafas de vinho"]
+};
+const packEl=document.getElementById("packlist");
+Object.entries(PACK).forEach(([g,items],gi)=>{
+  const div=document.createElement("div");div.className="group";
+  div.innerHTML=`<h4>${g}</h4><ul class="checks"></ul>`;packEl.appendChild(div);
+  checklist(div.querySelector("ul"),items,"pk"+gi,null);
+});
+function updPack(){const b=[...packEl.querySelectorAll("input")];document.getElementById("packprog").textContent="· "+b.filter(x=>x.checked).length+"/"+b.length+" na mala"}
+updPack();
+checklist(document.getElementById("reslist"),[
+ "Apartamento em San Alfonso del Mar para 24/11, confirmando acesso à lagoa",
+ "Van privada para 24 e 25/11 (preço fechado, com pernoite do motorista)",
+ "Transfers do aeroporto: chegada 22/11 11:15 e saída 27/11 16:30",
+ "Tour na Concha y Toro (ou Santa Rita) em 23/11, em português",
+ "Mesa para 6 na janela do Giratório, 22/11 às 20:00",
+ "Ingressos do Sky Costanera online para 27/11",
+ "Seguro-viagem do grupo",
+ "Confirmar com o Nodo: guarda-volumes no dia 27 e isenção de IVA"
+],"rs",document.getElementById("resprog"));
+
+/* conversor */
+const clp=document.getElementById("clp"),brl=document.getElementById("brl"),rate=document.getElementById("rate");
+const num=s=>parseFloat(String(s).replace(/\./g,"").replace(",","."))||0;
+const fmtBRL=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtCLP=n=>Math.round(n).toLocaleString("pt-BR");
+const r=()=>{const v=parseFloat(rate.value.replace(",","."));return v>0?v/1000:0.0055};
+clp.addEventListener("input",()=>{brl.value=fmtBRL(num(clp.value)*r())});
+brl.addEventListener("input",()=>{clp.value=fmtCLP(num(brl.value)/r())});
+rate.addEventListener("input",()=>{brl.value=fmtBRL(num(clp.value)*r())});
+brl.value=fmtBRL(num(clp.value)*r());
+</script>
+</body>
+</html>
