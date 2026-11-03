@@ -36,7 +36,8 @@ header.top{padding-block:28px 8px}
 .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6vw,42px);line-height:1.1;margin:6px 0 10px;text-wrap:balance}
 .lede{color:var(--muted);max-width:60ch;margin:0}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:20px}
+.updated{display:inline-block;margin-top:10px;font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:20px}
 .facts div{background:var(--surface);padding:10px 12px;min-width:0}
 .facts dt{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .facts dd{margin:2px 0 0;font-weight:600;font-size:15px}
@@ -128,6 +129,9 @@ footer li{break-inside:avoid;margin:3px 0}
 .opt .tag{margin-left:0}
 .subtotal td{font-weight:700;background:var(--bg)}
 .food{margin-top:14px}
+@media (max-width:720px){
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media (max-width:520px){
   .hero{aspect-ratio:16/9}
   .days{grid-template-columns:repeat(3,1fr)}
@@ -145,6 +149,7 @@ footer li{break-inside:avoid;margin:3px 0}
     <div class="eyebrow">Santiago · Valparaíso · Viña del Mar · 22–27 nov 2026</div>
     <h1>Santiago em família</h1>
     <p class="lede">Seis dias para seis pessoas, sem nenhum passeio em altitude. Toque no dia para ver horários, como chegar e quanto custa.</p>
+    <span class="updated">Atualizado em 03/11/2026</span>
     <dl class="facts">
       <div><dt>Grupo</dt><dd>Giovanni (Papai), Denise (Mamãe), Mana, Ozy, Gabi e João</dd></div>
       <div><dt>Ida · dom 22</dt><dd class="mono">GRU 7:10 → SCL 11:15</dd></div>
